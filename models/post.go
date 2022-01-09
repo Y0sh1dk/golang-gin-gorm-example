@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/jinzhu/gorm"
+)
 
 type Post struct {
 	ID        uint      `gorm:"primary_key;auto_increment" json:"id"`
@@ -13,4 +17,26 @@ type Post struct {
 
 func (p *Post) Prepare() {
 	p.CreatedAt = time.Now()
+}
+
+func (p *Post) GetPosts(db *gorm.DB, posts *[]Post) {
+
+}
+
+func (p *Post) GetPostByID(db *gorm.DB, post *Post, id string) {
+
+}
+
+func (p *Post) CreatePost(db *gorm.DB, post *Post) {
+
+}
+
+func (p *Post) UpdatePost(db *gorm.DB, post *Post) {
+	// Set Post.UpdatedAt
+
+}
+
+// Delete post AND comments
+func (p *Post) DeletePost(db *gorm.DB, post *Post) {
+
 }
