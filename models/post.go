@@ -26,7 +26,10 @@ func GetPosts(db *gorm.DB, posts *[]Post) error {
 	return nil
 }
 
-func (p *Post) GetPostByID(db *gorm.DB, post *Post, id string) error {
+func GetPostByID(db *gorm.DB, post *Post, id string) error {
+	if err := db.Where("id = ?", id).Find(post).Error; err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -43,6 +46,6 @@ func (p *Post) UpdatePost(db *gorm.DB, post *Post) error {
 }
 
 // Delete post AND comments
-func (p *Post) DeletePost(db *gorm.DB, post *Post) error {
+func DeletePost(db *gorm.DB, post *Post) error {
 	return nil
 }

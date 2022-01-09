@@ -20,7 +20,14 @@ func (s *Server) GetPosts(c *gin.Context) {
 }
 
 func (s *Server) GetPostByID(c *gin.Context) {
+	var post models.Post
 
+	if err := models.GetPostByID(s.DB, &post, c.Param("id")); err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+
+	c.JSON(http.StatusOK, post)
 }
 
 func (s *Server) CreatePost(c *gin.Context) {
@@ -48,6 +55,8 @@ func (s *Server) UpdatePost(c *gin.Context) {
 
 }
 
-func (s *Server) DeletePost(c *gin.Context) {
+// func (s *Server) DeletePost(c *gin.Context) {
+// 	var post models.Post
 
-}
+// 	if err := models.DeletePost(s.DB, &post)
+// }
