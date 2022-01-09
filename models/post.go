@@ -19,24 +19,27 @@ func (p *Post) Prepare() {
 	p.CreatedAt = time.Now()
 }
 
-func (p *Post) GetPosts(db *gorm.DB, posts *[]Post) {
-
+func GetPosts(db *gorm.DB, posts *[]Post) error {
+	if err := db.Find(posts).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
-func (p *Post) GetPostByID(db *gorm.DB, post *Post, id string) {
-
+func (p *Post) GetPostByID(db *gorm.DB, post *Post, id string) error {
+	return nil
 }
 
-func (p *Post) CreatePost(db *gorm.DB, post *Post) {
-
+func (p *Post) CreatePost(db *gorm.DB, post *Post) error {
+	return nil
 }
 
-func (p *Post) UpdatePost(db *gorm.DB, post *Post) {
+func (p *Post) UpdatePost(db *gorm.DB, post *Post) error {
 	// Set Post.UpdatedAt
-
+	return nil
 }
 
 // Delete post AND comments
-func (p *Post) DeletePost(db *gorm.DB, post *Post) {
-
+func (p *Post) DeletePost(db *gorm.DB, post *Post) error {
+	return nil
 }

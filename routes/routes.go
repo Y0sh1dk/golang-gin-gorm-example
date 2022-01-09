@@ -3,16 +3,16 @@ package routes
 import (
 	"net/http"
 
+	"github.com/Y0sh1dk/golang-gin-gorm-example/controllers"
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter() *gin.Engine {
-	r := gin.Default()
+func SetupRouter(server *controllers.Server) {
+	server.Router = gin.Default()
 
-	v1(r)
+	v1(server)
 
-	r.GET("/", func(c *gin.Context) {
+	server.Router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, "Hello World")
 	})
-	return r
 }
