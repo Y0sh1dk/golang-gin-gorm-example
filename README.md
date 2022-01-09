@@ -3,6 +3,7 @@
 ## TODO:
 
  - Add server config
+ - Tests
  - Logging (To DB?)
  - Seed DB with data
  - Build docker image (from makefile)
