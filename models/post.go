@@ -30,7 +30,10 @@ func (p *Post) GetPostByID(db *gorm.DB, post *Post, id string) error {
 	return nil
 }
 
-func (p *Post) CreatePost(db *gorm.DB, post *Post) error {
+func CreatePost(db *gorm.DB, post *Post) error {
+	if err := db.Create(post).Error; err != nil {
+		return err
+	}
 	return nil
 }
 

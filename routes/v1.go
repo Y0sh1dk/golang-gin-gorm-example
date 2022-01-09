@@ -15,5 +15,6 @@ func v1(server *controllers.Server) {
 		c.String(http.StatusOK, "pong")
 	})
 
-	v1.GET("/users", server.GetPosts)
+	v1.GET("/posts", server.GetPosts)
+	v1.PUT("/posts", server.CreatePost)
 }
