@@ -9,6 +9,8 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
+	v1(r)
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, "Hello World")
 	})
