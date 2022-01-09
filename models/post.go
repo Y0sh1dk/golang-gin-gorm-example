@@ -40,8 +40,11 @@ func CreatePost(db *gorm.DB, post *Post) error {
 	return nil
 }
 
-func (p *Post) UpdatePost(db *gorm.DB, post *Post) error {
-	// Set Post.UpdatedAt
+func UpdatePost(db *gorm.DB, post *Post) error {
+	post.UpdatedAt = time.Now()
+	if err := db.Model(&post).Updates(post).Error; err != nil {
+		return err
+	}
 	return nil
 }
 

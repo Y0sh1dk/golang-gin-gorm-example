@@ -51,8 +51,27 @@ func (s *Server) CreatePost(c *gin.Context) {
 	c.JSON(http.StatusOK, post)
 }
 
-func (s *Server) UpdatePost(c *gin.Context) {
+func (s *Server) UpdatePostByID(c *gin.Context) {
+	var post models.Post
 
+	// Get the model if it exists
+	if err := models.GetPostByID(s.DB, &post, c.Param("id")); err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+
+	// Validate input
+	if err := c.ShouldBindJSON(&post); err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+
+	if err := models.UpdatePost(s.DB, &post); err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+
+	c.JSON(http.StatusOK, post)
 }
 
 func (s *Server) DeletePostByID(c *gin.Context) {
