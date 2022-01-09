@@ -2,10 +2,7 @@ module github.com/Y0sh1dk/golang-gin-gorm-example
 
 go 1.17
 
-require (
-	github.com/jinzhu/gorm v1.9.16
-	gorm.io/gorm v1.22.4
-)
+require github.com/jinzhu/gorm v1.9.16
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
