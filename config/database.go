@@ -2,8 +2,8 @@ package config
 
 import (
 	"fmt"
-	"os"
-	"strconv"
+
+	"github.com/Y0sh1dk/golang-gin-gorm-example/utils"
 
 	"github.com/jinzhu/gorm"
 )
@@ -20,11 +20,11 @@ type DBConfig struct {
 
 func BuildDBConfig() *DBConfig {
 	dbConfig := DBConfig{
-		Host:     GetEnv("DB_HOST", "localhost"),
-		Port:     StringToInt(GetEnv("DB_PORT", "5432")),
-		User:     GetEnv("DB_USER", "pg"),
-		Password: GetEnv("DB_PASSWORD", "password"),
-		DBName:   GetEnv("DB_NAME", "golang-gin-gorm-example"),
+		Host:     utils.GetEnv("DB_HOST", "localhost"),
+		Port:     utils.StringToInt(utils.GetEnv("DB_PORT", "5432")),
+		User:     utils.GetEnv("DB_USER", "pg"),
+		Password: utils.GetEnv("DB_PASSWORD", "password"),
+		DBName:   utils.GetEnv("DB_NAME", "golang-gin-gorm-example"),
 	}
 	return &dbConfig
 }
@@ -36,18 +36,4 @@ func BuildDSN(dbConfig *DBConfig) string {
 		dbConfig.Password,
 		dbConfig.DBName,
 		dbConfig.Port)
-}
-
-// TODO(yoshi): factor this out
-func GetEnv(key, fallback string) string {
-	value, exists := os.LookupEnv(key)
-	if !exists {
-		value = fallback
-	}
-	return value
-}
-
-func StringToInt(s string) int {
-	str, _ := strconv.Atoi(s)
-	return str
 }
