@@ -8,12 +8,15 @@ import (
 func GetEnv(key, fallback string) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
-		value = fallback
+		return fallback
 	}
 	return value
 }
 
 func StringToInt(s string) int {
-	str, _ := strconv.Atoi(s)
+	str, err := strconv.Atoi(s)
+	if err != nil {
+		return 0
+	}
 	return str
 }
