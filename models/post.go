@@ -46,6 +46,10 @@ func (p *Post) UpdatePost(db *gorm.DB, post *Post) error {
 }
 
 // Delete post AND comments
-func DeletePost(db *gorm.DB, post *Post) error {
+func DeletePost(db *gorm.DB, post *Post, id string) error {
+	if err := GetPostByID(db, post, id); err != nil {
+		return err
+	}
+	db.Delete(post)
 	return nil
 }

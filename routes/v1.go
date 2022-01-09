@@ -18,4 +18,5 @@ func v1(server *controllers.Server) {
 	v1.GET("/posts", server.GetPosts)
 	v1.PUT("/posts", server.CreatePost)
 	v1.GET("/posts/:id", server.GetPostByID)
+	v1.DELETE("/posts/:id", server.DeletePostByID)
 }

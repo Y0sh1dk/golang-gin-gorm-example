@@ -55,8 +55,13 @@ func (s *Server) UpdatePost(c *gin.Context) {
 
 }
 
-// func (s *Server) DeletePost(c *gin.Context) {
-// 	var post models.Post
+func (s *Server) DeletePostByID(c *gin.Context) {
+	var post models.Post
 
-// 	if err := models.DeletePost(s.DB, &post)
-// }
+	if err := models.DeletePost(s.DB, &post, c.Param("id")); err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+
+	c.JSON(http.StatusOK, post)
+}
