@@ -8,12 +8,16 @@ import (
 
 type Comment struct {
 	ID        uint      `gorm:"primary_key;auto_increment" json:"id"`
-	Author    string    `gorm:"not null" json:"author"`
-	Body      string    `gorm:"not null" json:"body"`
+	Author    string    `gorm:"not null" json:"author" binding:"required"`
+	Body      string    `gorm:"not null" json:"body" binding:"required"`
 	Post      Post      `json:"post"`
-	PostID    uint      `gorm:"not null" json:"post_id"`
+	PostID    int       `gorm:"not null" json:"post_id" binding:"required"`
 	CreatedAt time.Time `gorm:"not null" json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type UpdateCommentInput struct {
+	Body string `gorm:"not null" json:"body" binding:"required"`
 }
 
 func (c *Comment) Prepare() {
@@ -36,6 +40,9 @@ func GetCommentByID(db *gorm.DB, comment *Comment, id string) error {
 }
 
 func CreateComment(db *gorm.DB, comment *Comment) error {
+	if err := db.Create(comment).Error; err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -47,10 +54,7 @@ func UpdateComment(db *gorm.DB, comment *Comment) error {
 	return nil
 }
 
-func DeleteComment(db *gorm.DB, comment *Comment, id string) error {
-	if err := GetCommentByID(db, comment, id); err != nil {
-		return err
-	}
+func DeleteComment(db *gorm.DB, comment *Comment) error {
 	if err := db.Delete(comment).Error; err != nil {
 		return err
 	}

@@ -26,6 +26,7 @@ func GetPosts(db *gorm.DB, posts *[]Post) error {
 	return nil
 }
 
+// TODO(yoshi): Take int not string!
 func GetPostByID(db *gorm.DB, post *Post, id string) error {
 	if err := db.Where("id = ?", id).Find(post).Error; err != nil {
 		return err
