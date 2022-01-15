@@ -26,7 +26,7 @@ func (c *Comment) Prepare() {
 }
 
 func GetComments(db *gorm.DB, comments *[]Comment) error {
-	if err := db.Find(comments).Error; err != nil {
+	if err := db.Preload("Post").Find(comments).Error; err != nil {
 		return err
 	}
 	return nil
