@@ -39,13 +39,13 @@ func (s *Server) CreateComment(c *gin.Context) {
 		return
 	}
 
+	comment.Prepare()
+
 	// Attach post
 	if err := models.GetPostByID(s.DB, &comment.Post, strconv.Itoa(comment.PostID)); err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 		return
 	}
-
-	comment.Prepare()
 
 	// Create
 	if err := models.CreateComment(s.DB, &comment); err != nil {
