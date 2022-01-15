@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/jinzhu/gorm"
+)
 
 type Comment struct {
 	ID        uint      `gorm:"primary_key;auto_increment" json:"id"`
@@ -15,4 +19,24 @@ type Comment struct {
 func (c *Comment) Prepare() {
 	c.Post = Post{}
 	c.CreatedAt = time.Now()
+}
+
+func GetComments(db *gorm.DB, comments *[]Comment) error {
+	return nil
+}
+
+func GetCommentByID(db *gorm.DB, comment *Comment) error {
+	return nil
+}
+
+func CreateComment(db *gorm.DB, comment *Comment) error {
+	return nil
+}
+
+func UpdateComment(db *gorm.DB, comment *Comment) error {
+	return nil
+}
+
+func DeleteComment(db *gorm.DB, comment *Comment) error {
+	return nil
 }
