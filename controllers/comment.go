@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/Y0sh1dk/golang-gin-gorm-example/models"
 	"github.com/gin-gonic/gin"
@@ -41,11 +40,11 @@ func (s *Server) CreateComment(c *gin.Context) {
 
 	comment.Prepare()
 
-	// Attach post
-	if err := models.GetPostByID(s.DB, &comment.Post, strconv.Itoa(comment.PostID)); err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		return
-	}
+	// // Attach post
+	// if err := models.GetPostByID(s.DB, &comment.Post, strconv.Itoa(comment.PostID)); err != nil {
+	// 	c.AbortWithStatus(http.StatusNotFound)
+	// 	return
+	// }
 
 	// Create
 	if err := models.CreateComment(s.DB, &comment); err != nil {

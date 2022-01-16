@@ -10,7 +10,6 @@ type Comment struct {
 	ID        uint      `gorm:"primary_key;auto_increment" json:"id"`
 	Author    string    `gorm:"not null" json:"author" binding:"required"`
 	Body      string    `gorm:"not null" json:"body" binding:"required"`
-	Post      Post      `json:"post"`
 	PostID    int       `gorm:"not null" json:"post_id" binding:"required"`
 	CreatedAt time.Time `gorm:"not null" json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
@@ -21,12 +20,11 @@ type UpdateCommentInput struct {
 }
 
 func (c *Comment) Prepare() {
-	c.Post = Post{}
 	c.CreatedAt = time.Now()
 }
 
 func GetComments(db *gorm.DB, comments *[]Comment) error {
-	if err := db.Preload("Post").Find(comments).Error; err != nil {
+	if err := db.Find(comments).Error; err != nil {
 		return err
 	}
 	return nil
