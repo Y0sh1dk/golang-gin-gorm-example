@@ -84,3 +84,14 @@ func (s *Server) DeletePostByID(c *gin.Context) {
 
 	c.JSON(http.StatusOK, post)
 }
+
+func (s *Server) GetCommentsByPostID(c *gin.Context) {
+	var comments []models.Comment
+
+	if err := models.GetCommentsByPostID(s.DB, &comments, c.Param("id")); err != nil {
+		c.AbortWithStatus(http.StatusOK)
+		return
+	}
+
+	c.JSON(http.StatusOK, comments)
+}

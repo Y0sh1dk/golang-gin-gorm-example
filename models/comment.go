@@ -32,6 +32,13 @@ func GetComments(db *gorm.DB, comments *[]Comment) error {
 	return nil
 }
 
+func GetCommentsByPostID(db *gorm.DB, comments *[]Comment, post_id string) error {
+	if err := db.Where("post_id = ?", post_id).Find(comments).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
 func GetCommentByID(db *gorm.DB, comment *Comment, id string) error {
 	if err := db.Where("id = ?", id).Find(comment).Error; err != nil {
 		return err
